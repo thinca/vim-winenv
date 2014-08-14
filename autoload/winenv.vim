@@ -95,8 +95,10 @@ function! winenv#_write(path)
 
   if empty(content)
     call winenv#remove(path_data.place, path_data.var_name)
+    execute 'let $' . path_data.var_name . ' = ""'
   else
     call winenv#set(path_data.place, path_data.var_name, content)
+    execute 'let $' . path_data.var_name . ' = content'
   endif
   setlocal nomodified
 endfunction
