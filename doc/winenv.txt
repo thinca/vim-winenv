@@ -12,6 +12,7 @@ INTERFACE			|winenv-interface|
   COMMANDS			  |winenv-commands|
   FUNCTIONS			  |winenv-functions|
   KEY MAPPINGS			  |winenv-key-mappings|
+  PATHS				  |winenv-paths|
 CUSTOMIZING			|winenv-customizing|
 CHANGELOG			|winenv-changelog|
 
