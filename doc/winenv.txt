@@ -1,0 +1,163 @@
+*winenv.txt*	Edit global environment variable on MS Windows.
+
+Version: 1.0
+Author : thinca <thinca+vim@gmail.com>
+License: zlib License
+
+==============================================================================
+CONTENTS					*winenv-contents*
+
+INTRODUCTION			|winenv-introduction|
+INTERFACE			|winenv-interface|
+  COMMANDS			  |winenv-commands|
+  FUNCTIONS			  |winenv-functions|
+  KEY MAPPINGS			  |winenv-key-mappings|
+CUSTOMIZING			|winenv-customizing|
+CHANGELOG			|winenv-changelog|
+
+
+
+==============================================================================
+INTRODUCTION					*winenv-introduction*
+
+*winenv.vim* is a Vim plugin to edit global environment variable on MS
+Windows.
+
+On MS Windows, editing an global environment variable is very troublesome.
+This plugin allows you to list, show, and edit the global environment
+variables.
+
+						*winenv-place*
+This plugin can treat following environment variable types.
+- SYSTEM
+- USER
+- VOLATILE
+This document calls these {place}.
+
+Administrator authority is needed for changing a system environment variable.
+A UAC dialog is displayed when Vim is not performed by administrator
+authority.
+
+Note that this plugin changes global environment variable only, doesn't change
+the environment variable of current process.
+
+!!!CAUTION!!!
+This plugin may give the serious change for a system.
+Please use by self-responsibility.
+
+
+Requirements:
+- Vim 7.3 or later
+
+Latest version:
+https://github.com/thinca/vim-winenv
+
+
+
+==============================================================================
+INTERFACE					*winenv-interface*
+
+------------------------------------------------------------------------------
+COMMANDS					*winenv-commands*
+
+:WinEnv						*:WinEnv*
+	Opens a buffer to list the places.
+
+:WinEnv {place}/
+	Opens a buffer to list the variable names of {place}.
+
+:WinEnv {name}
+:WinEnv {place}/{name}
+	Opens a buffer to edit the variable.
+
+	See also |g:winenv#opener|.
+
+
+
+------------------------------------------------------------------------------
+FUNCTIONS					*winenv-functions*
+
+winenv#open([{place} [, {name}]])		*winenv#open()*
+	Opens a buffer to list the variables or edit the variable.
+
+winenv#places()					*winenv#places()*
+	Returns the list of all available {place}s.
+
+winenv#list({place})				*winenv#list()*
+	Returns the name list of environment variables in {place}.
+
+winenv#get({place}, {name})			*winenv#get()*
+	Gets the environment variable from {place}.
+
+winenv#set({place}, {name}, {value})		*winenv#set()*
+	Sets the environment variable to {place}.
+
+winenv#remove({place}, {name})			*winenv#remove()*
+	Sets the environment variable from {place}.
+
+
+
+------------------------------------------------------------------------------
+KEY MAPPINGS					*winenv-key-mappings*
+
+The following key mapping can be used only within a winenv buffer of listing
+places or variables.
+
+<Plug>(winenv-edit)				*<Plug>(winenv-edit)*
+	Opens a buffer for editing the environment variable under a cursor.
+
+
+The following key mappings will be available.
+
+{lhs}		{rhs}
+--------	---------------------
+<CR>		<Plug>(winenv-edit)
+
+
+
+------------------------------------------------------------------------------
+PATHS						*winenv-paths*
+
+The following buffer names are processed by |winenv.vim|.
+
+winenv://
+	Lists the all {place}.
+
+winenv://{place}/
+	Lists the variable names in {place}.
+
+winenv://{place}/{var-name}
+	A buffer to edit an environment variable.
+	The variable is removed when an empty buffer is saved.
+
+	SPACIAL FORM ~
+	Some variables are converted to special form to easy editing.
+	The following variables are divided by ";" and shown in each line.
+	- PATH
+	- PATHEXT
+
+
+
+==============================================================================
+CUSTOMIZING					*winenv-customizing*
+
+g:winenv#opener					*g:winenv#opener*
+	|:Winenv| opens a buffer with this command.
+	The default value is |:new|.
+
+g:winenv#default_place				*g:winenv#default_place*
+	Used when {place} is omitted in |:WinEnv|.
+	The default value is "SYSTEM".
+
+
+
+==============================================================================
+CHANGELOG					*winenv-changelog*
+
+1.0	2014-08-14
+	- Initial version.
+
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
