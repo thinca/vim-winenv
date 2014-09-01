@@ -7,8 +7,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let g:winenv#opener = get(g:, 'editvar#opener', 'new')
-let g:winenv#default_place = get(g:, 'g:winenv#default_place', 'SYSTEM')
+let g:winenv#opener = get(g:, 'winenv#opener', 'new')
+let g:winenv#default_place = get(g:, 'winenv#default_place', 'SYSTEM')
 
 let s:winenv_cmd = expand('<sfile>:p:h:h') . '\bin\winenv.bat'
 
