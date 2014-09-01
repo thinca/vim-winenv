@@ -9,10 +9,10 @@ set cpo&vim
 
 let g:winenv#opener = get(g:, 'winenv#opener', 'new')
 let g:winenv#default_place = get(g:, 'winenv#default_place', 'SYSTEM')
+let g:winenv#extra_separators = get(g:, 'winenv#extra_separators', {})
 
 let s:winenv_cmd = expand('<sfile>:p:h:h') . '\bin\winenv.bat'
 
-" XXX: to be configuable?
 let s:separators = {
 \   'PATH': ';',
 \   'PATHEXT': ';',
@@ -68,8 +68,9 @@ function! winenv#_read(path)
     let b:winenv_buftype = 'variable'
     let content = winenv#get(path_data.place, path_data.var_name)
     let var_key = toupper(path_data.var_name)
-    if has_key(s:separators, var_key)
-      let separator = s:separators[var_key]
+    let separators = extend(copy(s:separators), g:winenv#extra_separators)
+    if has_key(separators, var_key)
+      let separator = separators[var_key]
       let b:winenv_separator = separator
       let l:.content = split(content, separator)
     endif
