@@ -131,7 +131,8 @@ winenv://{place}/{var-name}
 	A buffer to edit an environment variable.
 	The variable is removed when an empty buffer is saved.
 
-	SPACIAL FORM ~
+						*winenv-special-form*
+	SPECIAL FORM ~
 	Some variables are converted to special form to easy editing.
 	The following variables are divided by ";" and shown in each line.
 	- PATH
@@ -150,6 +151,15 @@ g:winenv#default_place				*g:winenv#default_place*
 	Used when {place} is omitted in |:WinEnv|.
 	The default value is "SYSTEM".
 
+g:winenv#extra_separators			*g:winenv#extra_separators*
+	Additional variables to be edited in |winenv-special-form|.  It must
+	be a dict, its key is name of variable and value is separator.
+	The default value is {} (no additional variables).
+
+	Example for adding "CLASSPATH":
+>
+	let g:winenv#extra_separators = { 'CLASSPATH': ';' }
+<
 
 
 ==============================================================================
